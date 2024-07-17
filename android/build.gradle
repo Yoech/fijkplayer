@@ -1,11 +1,16 @@
-group 'com.befovy.fijkplayer'
-version '0.11.0'
-
 buildscript {
     ext.kotlin_version = "1.7.10"
     repositories {
         google()
         mavenCentral()
+        maven { url=uri('https://maven.aliyun.com/nexus/content/groups/public/') }
+        maven { url=uri('https://maven.aliyun.com/repository/google') }
+        maven { url=uri('https://maven.aliyun.com/repository/gradle-plugin') }
+        maven { url=uri('https://maven.aliyun.com/repository/jcenter') }
+        maven { url=uri('https://maven.aliyun.com/repository/central') }
+        maven { url=uri('https://maven.aliyun.com/repository/public') }        
+        maven { url=uri('https://download.flutter.io') }
+        maven { url=uri('https://storage.flutter-io.cn/download.flutter.io') }
     }
 
     dependencies {
@@ -18,6 +23,14 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url=uri('https://maven.aliyun.com/nexus/content/groups/public/') }
+        maven { url=uri('https://maven.aliyun.com/repository/google') }
+        maven { url=uri('https://maven.aliyun.com/repository/gradle-plugin') }
+        maven { url=uri('https://maven.aliyun.com/repository/jcenter') }
+        maven { url=uri('https://maven.aliyun.com/repository/central') }
+        maven { url=uri('https://maven.aliyun.com/repository/public') }        
+        maven { url=uri('https://download.flutter.io') }
+        maven { url=uri('https://storage.flutter-io.cn/download.flutter.io') }
     }
 }
 
@@ -26,28 +39,26 @@ apply plugin: "kotlin-android"
 
 android {
     namespace "com.befovy.fijkplayer"
-    compileSdkVersion 34
+    compileSdk 34
 
+    defaultConfig {
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    defaultConfig {
-        minSdkVersion 21
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        encoding = "UTF-8"
     }
     lintOptions {
         disable 'InvalidPackage'
+        disable 'GradleDependency'
     }
 }
 
-
 dependencies {
-
     // implementation(name: 'fijkplayer-full-release', ext: 'aar')
 
     // fijkplayer-full include the java lib and native shared libs for armv5 armv7 arm64 x86 x86_64
     implementation 'com.befovy.fijkplayer:fijkplayer-full:0.7.16'
-    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'androidx.annotation:annotation:1.8.0'
 }
