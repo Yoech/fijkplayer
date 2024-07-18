@@ -53,6 +53,12 @@ android {
         disable 'InvalidPackage'
         disable 'GradleDependency'
     }
+
+    // 解决导入AS后出现错误乱码
+    tasks.withType(JavaCompile) {
+        options.fork = true
+        options.forkOptions.jvmArgs += ["-Duser.language=en"]
+    }
 }
 
 dependencies {
