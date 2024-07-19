@@ -41,9 +41,6 @@ android {
         versionName = flutterVersionName
     }
 
-    aaptOptions {
-        noCompress '.flv', '.mp4'
-    }
 
     buildTypes {
         release {
@@ -52,6 +49,9 @@ android {
             signingConfig signingConfigs.debug
             // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    androidResources {
+        noCompress '.flv', '.mp4'
     }
 }
 
