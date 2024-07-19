@@ -502,7 +502,10 @@ public class FijkPlugin implements MethodCallHandler, FlutterPlugin, ActivityAwa
         Activity activity = activity();
         if (activity == null || activity.getWindow() == null)
             return 0;
-        float brightness = activity.getWindow().getAttributes().screenBrightness;
+        float brightness = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.CUPCAKE) {
+            brightness = activity.getWindow().getAttributes().screenBrightness;
+        }
         if (brightness < 0) {
             Context context = context();
             Log.w("FIJKPLAYER", "window attribute brightness less than 0");
@@ -523,7 +526,9 @@ public class FijkPlugin implements MethodCallHandler, FlutterPlugin, ActivityAwa
         if (activity == null || activity.getWindow() == null)
             return;
         WindowManager.LayoutParams layoutParams = activity.getWindow().getAttributes();
-        layoutParams.screenBrightness = brightness;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+            layoutParams.screenBrightness = brightness;
+        }
         activity.getWindow().setAttributes(layoutParams);
     }
 

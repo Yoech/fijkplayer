@@ -34,6 +34,14 @@ allprojects {
     }
 }
 
+def flutterSdkPath = {
+    def properties = new Properties()
+    file("local.properties").withInputStream { properties.load(it) }
+    def flutterSdkPath = properties.getProperty("flutter.sdk")
+    assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+    return flutterSdkPath
+}()
+
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
@@ -42,6 +50,7 @@ android {
     compileSdk 34
 
     defaultConfig {
+        minSdk 21
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -54,10 +63,19 @@ android {
         disable 'GradleDependency'
     }
 
+    tasks.register("flutterSdkPath") {
+        doLast {
+            println "flutterSdkPath => " + flutterSdkPath + "\n"
+        }
+    }
+
     // 解决导入AS后出现错误乱码
-    tasks.withType(JavaCompile) {
-        options.fork = true
-        options.forkOptions.jvmArgs += ["-Duser.language=en"]
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.fork = true
+            options.forkOptions.jvmArgs += ["-Duser.language=en"]
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
     }
 }
 
@@ -67,4 +85,6 @@ dependencies {
     // fijkplayer-full include the java lib and native shared libs for armv5 armv7 arm64 x86 x86_64
     implementation 'com.befovy.fijkplayer:fijkplayer-full:0.7.16'
     implementation 'androidx.annotation:annotation:1.8.0'
+
+    //  implementation files(flutterSdkPath + '/bin/cache/artifacts/engine/android-x64/flutter.jar')
 }
