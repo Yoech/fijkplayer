@@ -55,12 +55,6 @@ android {
         disable 'GradleDependency'
     }
 
-    tasks.register("flutterSdkPath") {
-        doLast {
-            println "flutterSdkPath => " + flutterSdkPath + "\n"
-        }
-    }
-
     // 解决导入AS后出现错误乱码
     tasks.withType(JavaCompile).tap {
         configureEach {
