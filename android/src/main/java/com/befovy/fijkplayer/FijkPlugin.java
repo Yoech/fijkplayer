@@ -577,7 +577,7 @@ public class FijkPlugin implements MethodCallHandler, FlutterPlugin, ActivityAwa
     }
 
     @TargetApi(26)
-    // @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation")
     private void abandonAudioFocus() {
         AudioManager audioManager = audioManager();
         if (audioManager == null)
