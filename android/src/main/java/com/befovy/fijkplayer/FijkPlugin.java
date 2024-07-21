@@ -141,6 +141,8 @@ public class FijkPlugin implements MethodCallHandler, FlutterPlugin, ActivityAwa
     }
 
     // -------------------
+    // ActivityAware
+    // -------------------
     // UI/Activity plugin
     // -------------------
     @Override
