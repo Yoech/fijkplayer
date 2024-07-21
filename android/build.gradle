@@ -34,14 +34,6 @@ allprojects {
     }
 }
 
-def flutterSdkPath = {
-    def properties = new Properties()
-    file("local.properties").withInputStream { properties.load(it) }
-    def flutterSdkPath = properties.getProperty("flutter.sdk")
-    assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
-    return flutterSdkPath
-}()
-
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
@@ -85,6 +77,4 @@ dependencies {
     // fijkplayer-full include the java lib and native shared libs for armv5 armv7 arm64 x86 x86_64
     implementation 'com.befovy.fijkplayer:fijkplayer-full:0.7.16'
     implementation 'androidx.annotation:annotation:1.8.0'
-
-    //  implementation files(flutterSdkPath + '/bin/cache/artifacts/engine/android-x64/flutter.jar')
 }
